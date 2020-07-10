@@ -8,9 +8,11 @@
 		<Authors>SKB Kontur</Authors>
 		<Description>Zstd compression library wrapper for .NET</Description>
 		<Copyright>Copyright © SKB Kontur 2016-2018</Copyright>
-		<PackageLicenseUrl>https://github.com/skbkontur/ZstdNet/blob/master/LICENSE</PackageLicenseUrl>
-		<PackageProjectUrl>https://github.com/skbkontur/ZstdNet</PackageProjectUrl>
+		<PackageLicenseUrl></PackageLicenseUrl>
+		<PackageProjectUrl>https://github.com/HPA-Cognizant/ZstdNet</PackageProjectUrl>
 		<PackageTags>zstd zstandard compression</PackageTags>
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>ZstdNet.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="build\x64\libzstd.dll">
@@ -26,4 +28,11 @@
 		<None Include="build\**\*" Pack="true" PackagePath="build\" />
 		<None Include="..\LICENSE" Pack="true" PackagePath="lib\" />
 	</ItemGroup>
+  <PropertyGroup>
+    <NuspecFile>ZstdNet.nuspec</NuspecFile>
+    <NuspecProperties>$(NuspecProperties);version=$(Version)</NuspecProperties>
+    <NuspecProperties>$(NuspecProperties);id=$(PackageId)</NuspecProperties>
+    <NuspecProperties>$(NuspecProperties);author=$(Authors)</NuspecProperties>
+    <NuspecProperties>$(NuspecProperties);Description=$(Description)</NuspecProperties>
+  </PropertyGroup>
 </Project>
