@@ -3,10 +3,10 @@
 		<Version>1.3.3</Version>
 		<TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
 		<Title>ZstdNet</Title>
-		<PackageId>ZstdNet</PackageId>
+		<PackageId>ZstdNetHpa</PackageId>
 		<Company>SKB Kontur</Company>
 		<Authors>SKB Kontur</Authors>
-		<Description>Zstd compression library wrapper for .NET</Description>
+		<Description>Zstd compression library wrapper for .NET - Signed by HPA</Description>
 		<Copyright>Copyright © SKB Kontur 2016-2018</Copyright>
 		<PackageLicenseUrl></PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/HPA-Cognizant/ZstdNet</PackageProjectUrl>
