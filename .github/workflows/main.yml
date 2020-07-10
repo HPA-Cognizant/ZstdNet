@@ -51,7 +51,7 @@ jobs:
     - name: Create NuGet Packages
       if: ${{ success() && ( env.BUILD_PACKAGES == 'true' || endsWith( github.ref, 'master') ) }}
       run: |
-        nuget pack ZstdNet/ZstdNet.csproj -Prop Configuration=Release
+        dotnet pack ZstdNet/ZstdNet.csproj --no-build -c Release -o .
 
     - name: Push NuGet packages
       if: ${{ success() && ( env.BUILD_PACKAGES == 'true' || endsWith( github.ref, 'master') ) }}
