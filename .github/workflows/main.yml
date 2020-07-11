@@ -31,10 +31,10 @@ jobs:
          dotnet nuget sources add https://nuget.pkg.github.com/hpa-cognizant/index.json --name github --username ${{ secrets.NUGET_USER }} --password ${{ secrets.NUGET_TOKEN }} --store-password-in-clear-text --configfile nuget.config
 
     - name: Build
-      run: dotnet build **/*.csproj --configuration Release
+      run: dotnet build ZstdNet/ZstdNet.csproj --configuration Release
 
     - name: Test
-      run: dotnet test **/*.Test.csproj --configuration Release --no-restore --no-build
+      run: dotnet test ZstdNet.Tests/ZstdNet.Tests.csproj --configuration Release
 
     - name: Push NuGet packages
       if: ${{ success() && ( env.BUILD_PACKAGES == 'true' || endsWith( github.ref, 'master') ) }}
