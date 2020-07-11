@@ -27,15 +27,15 @@ jobs:
 
     - name: Authenticate nuget
       run: |
-         dotnet nuget sources remove -name "github" -configFile nuget.config
-         dotnet nuget sources add -name "github" -source https://nuget.pkg.github.com/hpa-cognizant/index.json -username ${{ secrets.NUGET_USER }} -password ${{ secrets.NUGET_TOKEN }} -StorePasswordInClearText -configFile nuget.config
+         dotnet nuget sources remove --name "github" --configfile nuget.config
+         dotnet nuget sources add --name "github" --source https://nuget.pkg.github.com/hpa-cognizant/index.json --username ${{ secrets.NUGET_USER }} --password ${{ secrets.NUGET_TOKEN }} --store-password-in-clear-text --configfile nuget.config
 
     - name: Build
-      run: dotnet build --configuration Release
+      run: dotnet build **/*.csproj --configuration Release
 
     - name: Test
-      run: dotnet test **/*.Test.csproj
+      run: dotnet test **/*.Test.csproj --configuration Release --no-restore --no-build
 
     - name: Push NuGet packages
       if: ${{ success() && ( env.BUILD_PACKAGES == 'true' || endsWith( github.ref, 'master') ) }}
-      run: dotnet push ZstdNet/bin/Release/*.nupkg -SkipDuplicate -Source "github"
+      run: dotnet nuget push ZstdNet/bin/Release/*.nupkg --skip-duplicate --source "github"
