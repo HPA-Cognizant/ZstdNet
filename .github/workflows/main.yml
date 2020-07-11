@@ -26,9 +26,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Authenticate nuget
-      run: |
-         dotnet nuget remove source github --configfile nuget.config
-         dotnet nuget sources add https://nuget.pkg.github.com/hpa-cognizant/index.json --name github --username ${{ secrets.NUGET_USER }} --password ${{ secrets.NUGET_TOKEN }} --store-password-in-clear-text --configfile nuget.config
+      run: dotnet nuget update source github  --source https://nuget.pkg.github.com/hpa-cognizant/index.json --username ${{ secrets.NUGET_USER }} --password ${{ secrets.NUGET_TOKEN }} --store-password-in-clear-text --configfile nuget.config
 
     - name: Build
       run: dotnet build --configuration Release
@@ -38,4 +36,4 @@ jobs:
 
     - name: Push NuGet packages
       if: ${{ success() && ( env.BUILD_PACKAGES == 'true' || endsWith( github.ref, 'master') ) }}
-      run: dotnet nuget push ZstdNet/bin/Release/*.nupkg --skip-duplicate --source "github"
+      run: dotnet nuget push ZstdNet/bin/Release/*.nupkg --skip-duplicate --source github
