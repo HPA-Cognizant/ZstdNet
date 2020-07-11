@@ -36,4 +36,4 @@ jobs:
 
     - name: Push NuGet packages
       if: ${{ success() && ( env.BUILD_PACKAGES == 'true' || endsWith( github.ref, 'master') ) }}
-      run: dotnet nuget push ZstdNet/bin/Release/*.nupkg --skip-duplicate --source github
+      run: dotnet nuget push **/*.nupkg --skip-duplicate --source github
