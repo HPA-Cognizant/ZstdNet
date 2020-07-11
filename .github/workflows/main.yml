@@ -27,8 +27,8 @@ jobs:
 
     - name: Authenticate nuget
       run: |
-         dotnet nuget sources remove --name "github" --configfile nuget.config
-         dotnet nuget sources add --name "github" --source https://nuget.pkg.github.com/hpa-cognizant/index.json --username ${{ secrets.NUGET_USER }} --password ${{ secrets.NUGET_TOKEN }} --store-password-in-clear-text --configfile nuget.config
+         dotnet nuget remove source github --configfile nuget.config
+         dotnet nuget sources add https://nuget.pkg.github.com/hpa-cognizant/index.json --name github --username ${{ secrets.NUGET_USER }} --password ${{ secrets.NUGET_TOKEN }} --store-password-in-clear-text --configfile nuget.config
 
     - name: Build
       run: dotnet build **/*.csproj --configuration Release
