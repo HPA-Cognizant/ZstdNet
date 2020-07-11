@@ -12,6 +12,8 @@ Streaming APIs are not implemented.
 
 Take a look on a library reference or unit tests to explore its behavior in different situations.
 
+Our fork of this repository makes the provided libraries signed which allows us to use them in projects that need.
+
 Zstd
 ----
 

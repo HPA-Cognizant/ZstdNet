@@ -17,7 +17,7 @@ jobs:
   build:
 
     runs-on: windows-latest
-    
+
     steps:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
@@ -25,36 +25,17 @@ jobs:
         dotnet-version: 3.1.101
     - uses: actions/checkout@v2
 
-    - name: Setup NuGet.exe
-      uses: nuget/setup-nuget@v1
-
     - name: Authenticate nuget
       run: |
-         nuget sources remove -name "github" -configFile nuget.config
-         nuget sources add -name "github" -source https://nuget.pkg.github.com/hpa-cognizant/index.json -username ${{ secrets.NUGET_USER }} -password ${{ secrets.NUGET_TOKEN }} -StorePasswordInClearText -configFile nuget.config
+         dotnet nuget sources remove -name "github" -configFile nuget.config
+         dotnet nuget sources add -name "github" -source https://nuget.pkg.github.com/hpa-cognizant/index.json -username ${{ secrets.NUGET_USER }} -password ${{ secrets.NUGET_TOKEN }} -StorePasswordInClearText -configFile nuget.config
 
-    - name: Fetch all tags and branches
-      if: ${{ success() && ( env.BUILD_PACKAGES == 'true' || endsWith( github.ref, 'master') ) }}
-      run: |
-        git config remote.origin.url https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-        git fetch --prune --unshallow
-
-    - name: Restore Packages
-      run: nuget restore ZstdNet.sln
-      
-    - name: Install dependencies
-      run: dotnet restore
-      
     - name: Build
-      run: dotnet build --configuration Release --no-restore
-  
-    - name: Create NuGet Packages
-      if: ${{ success() && ( env.BUILD_PACKAGES == 'true' || endsWith( github.ref, 'master') ) }}
-      run: |
-        dotnet pack ZstdNet/ZstdNet.csproj --no-build -c Release -o .
+      run: dotnet build --configuration Release
+
+    - name: Test
+      run: dotnet test **/*.Test.csproj
 
     - name: Push NuGet packages
       if: ${{ success() && ( env.BUILD_PACKAGES == 'true' || endsWith( github.ref, 'master') ) }}
-      run: nuget push *.nupkg -SkipDuplicate -Source "github"
-
-
+      run: dotnet push ZstdNet/bin/Release/*.nupkg -SkipDuplicate -Source "github"
