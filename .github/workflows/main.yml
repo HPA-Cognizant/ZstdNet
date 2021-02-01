@@ -11,6 +11,8 @@ on:
 
 env:
   BUILD_PACKAGES: 'true'
+  DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
 
 jobs:
 
