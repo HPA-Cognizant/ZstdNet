@@ -21,12 +21,9 @@ jobs:
     steps:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.101
-    - uses: actions/checkout@v2
 
     - name: Authenticate nuget
-      run: dotnet nuget update source github  --source https://nuget.pkg.github.com/hpa-cognizant/index.json --username ${{ secrets.NUGET_USER }} --password ${{ secrets.NUGET_TOKEN }} --store-password-in-clear-text --configfile nuget.config
+      run: dotnet nuget update source github  --source https://nuget.pkg.github.com/hpa-cognizant/index.json --username ${{ secrets.HPA_NUGET_USER }} --password ${{ secrets.HPA_NUGET_TOKEN }} --store-password-in-clear-text --configfile nuget.config
 
     - name: Build
       run: dotnet build --configuration Release
