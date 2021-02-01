@@ -23,6 +23,9 @@ jobs:
     steps:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
+    
+    - name: Setup NuGet.exe
+      uses: nuget/setup-nuget@v1
 
     - name: Authenticate nuget
       run: dotnet nuget update source github  --source https://nuget.pkg.github.com/hpa-cognizant/index.json --username ${{ secrets.HPA_NUGET_USER }} --password ${{ secrets.HPA_NUGET_TOKEN }} --store-password-in-clear-text --configfile nuget.config
